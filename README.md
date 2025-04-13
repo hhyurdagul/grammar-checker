@@ -204,9 +204,9 @@ Corrects multiple sentences in a single request.
 
 ## Future Improvements
 
-- [] Implement asynchronous processing for the batch endpoint for better performance.
-- [] Make retry attempts and delays configurable.
-- [] Add authentication/API keys.
-- [] Support selecting different Ollama models via API parameter or configuration.
-- [] More granular error reporting in batch responses.
-- [] Containerize the application using Docker.
+- [ ] Implement asynchronous processing for the batch endpoint for better performance.
+- [ ] Make retry attempts and delays configurable.
+- [ ] Add authentication/API keys.
+- [ ] Support selecting different Ollama models via API parameter or configuration.
+- [ ] More granular error reporting in batch responses.
+- [ ] Containerize the application using Docker.
