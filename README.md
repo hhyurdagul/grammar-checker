@@ -30,33 +30,35 @@ Before running this application, ensure you have the following installed and con
     *(If you modify `main.py` to use a different model, make sure to pull that model instead.)*
 4.  **pip:** Python package installer.
 
-## Installation
-
-1.  **Clone the repository (or download `main.py`):**
+1.  **Clone the repository (or download project files):**
     ```bash
     # If you have a git repository
     # git clone <your-repo-url>
     # cd <your-repo-directory>
 
-    # Otherwise, just ensure you have the main.py file
+    # Otherwise, just ensure you have main.py, pyproject.toml, etc.
     ```
 
-2.  **Create and activate a virtual environment (recommended):**
+2.  **Create a virtual environment using `uv`:**
+    (This typically creates a `.venv` directory in your project root)
     ```bash
-    # Linux/macOS
-    python3 -m venv venv
-    source venv/bin/activate
-
-    # Windows
-    python -m venv venv
-    .\venv\Scripts\activate
+    uv venv
     ```
 
-3.  **Install dependencies:**
+3.  **Install dependencies using `uv sync`:**
+    (This reads `pyproject.toml` and uses `uv.lock` if present to install dependencies into the `.venv`)
     ```bash
-    pip install fastapi uvicorn ollama pydantic httpx # httpx is used by ollama library
+    uv sync
     ```
-    *(Alternatively, if a `requirements.txt` file is provided: `pip install -r requirements.txt`)*
+
+4.  **(Optional) Add New Dependencies:**
+    If you need to add more packages later, use `uv add`:
+    ```bash
+    uv add <package-name>
+    ```
+    Followed by `uv sync` if needed, although `uv add` often updates the environment directly.
+
+* *Note: While you can activate the environment manually (`source .venv/bin/activate` or `.\.venv\Scripts\activate`), it's often unnecessary as commands can be run directly using `uv run`.*
 
 ## Configuration
 
@@ -65,17 +67,19 @@ Before running this application, ensure you have the following installed and con
 
 ## Running the API
 
+## Running the API
+
 1.  **Ensure Ollama is running:** Start the Ollama application/service.
-2.  **Start the FastAPI server using Uvicorn:**
+2.  **Start the FastAPI server using `uv run`:**
+    (`uv run` executes the command within the context of the virtual environment managed by `uv`)
     ```bash
-    uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
     ```
     * `main`: The name of the Python file (without `.py`).
     * `app`: The name of the FastAPI instance created in `main.py`.
     * `--reload`: Enables auto-reload on code changes (useful for development).
     * `--host 0.0.0.0`: Makes the server accessible on your network (use `127.0.0.1` for local access only).
     * `--port 8000`: Specifies the port number.
-
 3.  **Access the API:**
     * **Interactive Docs (Swagger UI):** Open your browser to [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
     * **Alternative Docs (ReDoc):** Open your browser to [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
@@ -110,19 +114,9 @@ Corrects a single sentence.
           "reason_of_error": "No error found." // Model might sometimes list words even if correct
         },
         {
-          "wrong_word": "has",
-          "correct_word": "has",
-          "reason_of_error": "No error found."
-        },
-        {
           "wrong_word": "somee",
           "correct_word": "some",
           "reason_of_error": "Spelling mistake."
-        },
-        {
-          "wrong_word": "spelling",
-          "correct_word": "spelling",
-          "reason_of_error": "No error found."
         },
         {
           "wrong_word": "mistaks",
@@ -210,9 +204,9 @@ Corrects multiple sentences in a single request.
 
 ## Future Improvements
 
-* Implement asynchronous processing for the batch endpoint for better performance.
-* Make retry attempts and delays configurable.
-* Add authentication/API keys.
-* Support selecting different Ollama models via API parameter or configuration.
-* More granular error reporting in batch responses.
-* Containerize the application using Docker.
+- [] Implement asynchronous processing for the batch endpoint for better performance.
+- [] Make retry attempts and delays configurable.
+- [] Add authentication/API keys.
+- [] Support selecting different Ollama models via API parameter or configuration.
+- [] More granular error reporting in batch responses.
+- [] Containerize the application using Docker.
