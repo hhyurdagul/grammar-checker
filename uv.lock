@@ -296,7 +296,7 @@ wheels = [
 ]
 
 [[package]]
-name = "sentence-corrector"
+name = "grammar-checker"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
