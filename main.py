@@ -81,7 +81,7 @@ def get_corrections(text: str) -> dict:
             messages=[
                 {
                     "role": "user",
-                    "content": f'Correct all the grammar and spelling errors in the following sentence. Try to give every answer. Respond ONLY with a JSON object matching the provided schema. Sentence: "{text}"',
+                    "content": f'Correct all the grammar and spelling errors in the following sentence. Respond ONLY with a JSON object matching the provided schema. Sentence: "{text}"',
                 },
             ],
             model="gemma3",  # Make sure this model is available
